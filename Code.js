@@ -1,4 +1,5 @@
-// https://github.com/bamjun/tripleLuck_data_to_discord.git
+// git clone https://github.com/bamjun/tripleLuck_data_to_discord.git
+// clasp clone "1jhHQfXReVhr4X2qA_eTPGh630v6El_k3qj038at9EBpN2tD4yK2B9DPv"
 
 function scrapeLottoDataToDiscord() {
   var matches = getTrippleLuckData();
