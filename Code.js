@@ -16,7 +16,7 @@ function scrapeLottoDataToDiscord() {
 
     var point_winner = (percentage*1000000).toFixed(2)
 
-    var content_text = `\`당첨\` : ${data1}        \`판매수량\` : ${data2}        \`판매율\` : ${data3}\n\n\`당첨지수\` : ${point_winner}`
+    var content_text = `\`당첨\` : ${data1}        \`판매수량\` : ${data2}        \`판매율\` : ${data3}\n\n\`당첨지수\` : ${point_winner}\n\n[링크](https://dhlottery.co.kr/gameInfo.do?method=lottoMainView&lottoId=LI21)`
     
     // Send the data to Discord
     sendToDiscord(content_text);
