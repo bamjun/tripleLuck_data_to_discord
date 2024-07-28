@@ -10,7 +10,8 @@ function scrapeLottoDataToDiscord() {
 
     var splitdata = data1.split("/");
 
-    var left_winners = Number(splitdata[0].replace(/[^0-9]/g, ''))
+    var left_winners = Number(splitdata[1].replace(/[^0-9]/g, '')) - Number(splitdata[0].replace(/[^0-9]/g, ''))
+    var left_winners = 1
     var sale_count = Number(data2.replace(/[^0-9]/g, ''))
     var percentage = computingWinning(left_winners, sale_count);
 
