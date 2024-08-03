@@ -31,11 +31,12 @@ function convertWinnerLotteryData(rawData) {
     var data_json = {"winners": matches[1], "sale": matches[2], "sale_percent": matches[3]}
     var splitWinnersData = data_json["winners"].split("/");
 
-    var left_winners = Number(splitWinnersData[1].replace(/[^0-9]/g, '')) - Number(splitWinnersData[0].replace(/[^0-9]/g, ''));
+    var winners = Number(splitWinnersData[0].replace(/[^0-9]/g, ''));
     var sale_count = Number(data_json["sale"].replace(/[^0-9]/g, ''));
-    var percentage = left_winners / (15000000 - sale_count)
+    var percentage = 1 / (3750000 * (winners + 1) - sale_count) * 100
 
-    var point_winner = (percentage*1000000).toFixed(2)
+
+    var point_winner = (percentage*10000).toFixed(2)
 
     var content_text = `\`당첨\` : ${data_json["winners"]}        \`판매수량\` : ${data_json["sale"]}\n\n\`당첨지수\` : ${point_winner}        \`판매율\` : ${data_json["sale_percent"]}\n\n[링크](https://dhlottery.co.kr/gameInfo.do?method=lottoMainView&lottoId=LI21)`
 
