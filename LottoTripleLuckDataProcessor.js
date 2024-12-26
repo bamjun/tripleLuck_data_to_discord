@@ -1,6 +1,3 @@
-// getTrippleLuckRawData()
-// 트리플럭 사이트에서 raw데이터 가져오기
-
 // convertWinnerLotteryData(rawData)
 // 트리플럭 raw데이터를 당첨자 정보만 추출
 
@@ -9,18 +6,6 @@
 
 
 
-// 트리플럭 사이트에서 raw데이터 가져오기
-function getTrippleLuckRawData() {
-  var url = 'https://dhlottery.co.kr/gameInfo.do?method=lottoMainView&lottoId=LI21';
-  
-  // Fetch the HTML content of the webpage
-  var response = UrlFetchApp.fetch(url);
-  var html = response.getContentText("EUC-KR"); // 인코딩을 EUC-KR로 지정
-  
-  // Parse the HTML using HtmlService
-  var document = HtmlService.createHtmlOutput(html).getContent();
-  return document
-}
 
 
 // 트리플럭 raw데이터를 당첨자 정보만 추출
@@ -40,7 +25,7 @@ function convertWinnerLotteryData(rawData) {
 
     var point_winner = (percentage*10000).toFixed(2)
 
-    var content_text = `\`당첨\` : ${data_json["winners"]}        \`판매수량\` : ${data_json["sale"]}\n\n\`당첨지수\` : ${point_winner}        \`판매율\` : ${data_json["sale_percent"]}\n\n[링크](https://dhlottery.co.kr/gameInfo.do?method=lottoMainView&lottoId=LI21)`
+    var content_text = `\`당첨\` : ${data_json["winners"]}        \`판매수량\` : ${data_json["sale"]}\n\n\`당첨지수\` : ${point_winner}        \`판매율\` : ${data_json["sale_percent"]}\n\n[링크](${getTrippleLuckRawData_URL})`
 
     return content_text
 
