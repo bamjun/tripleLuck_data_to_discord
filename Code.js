@@ -2,9 +2,9 @@
 // clasp clone "1jhHQfXReVhr4X2qA_eTPGh630v6El_k3qj038at9EBpN2tD4yK2B9DPv"
 
 function scrapeLottoDataToDiscord() {
-  var lastRowData = getLastRow({});
+  var lastRowData = getLastRow({row: 1})[0];
   var rawData = getTrippleLuckRawData();
-  var content_text = `${lastRowData[4]} - ${lastRowData[5]} 10만원\n ${lastRowData[6]}번\n\n 100만원\n ${lastRowData[7]}번\n\n 500만원\n ${lastRowData[8]}번\n\n 1억원\n ${lastRowData[9]}번\n\n 5억원\n ${lastRowData[10]}번`;
+  var content_text = `\`${lastRowData[4]} - ${lastRowData[5]}\` [링크](${getTrippleLuckRawData_URL})\n \`10만원\`\n ${lastRowData[6]}번\n\n \`100만원\`\n ${lastRowData[7]}번\n\n \`500만원\`\n ${lastRowData[8]}번\n\n \`1억원\`\n ${lastRowData[9]}번\n\n \`5억원\`\n ${lastRowData[10]}번`;
   content_text += "\n\n" + convertWinnersListData(rawData);
 
   const jsonData = JSON.parse(convertWinnersListDataJson(rawData));
@@ -47,8 +47,39 @@ function saveDataToSpreadsheet(jsonData, rawData) {
     sheet.appendRow(['date', 'time', 'id', 'prize_money', 'prize_year', 'prize_number', '100k', '1m', '5m', '100m', '500m', 'read']);
   }
 
+  
+  var lastRowData_8 = getLastRow({row: 8});
 
-  var lastRowData = getLastRow({});
+  // jsonData를 배열로 변환
+  let jsonArray = JSON.parse(JSON.stringify(jsonData));
+  
+  // lastRowData_8의 각 행에 대해 검사
+  outerLoop: for (let i = 7; i >= 0; i--) {
+    const existingRow = lastRowData_8[i];
+    
+    // jsonArray의 각 항목에 대해 검사
+    for (let j = 0; j < jsonArray.length; j++) {
+      const item = jsonArray[j];
+      
+      // date, amount, user가 모두 일치하는지 확인
+      if (item.date === existingRow[0] && 
+          item.amount === existingRow[3] && 
+          item.user === existingRow[2]) {
+        
+        // 일치하는 항목이 있으면 해당 인덱스까지의 모든 항목 제거
+        jsonArray.splice(j, 7);
+        break outerLoop;  // 외부 루프도 종료
+      }
+    }
+  }
+  
+  // 필터링된 jsonArray를 다시 jsonData에 할당
+  jsonData = jsonArray;
+
+  var lastRowData = lastRowData_8[7];
+
+
+
   if (lastRowData[6] == '100k') {
     lastRowData[6] = 0;
   }

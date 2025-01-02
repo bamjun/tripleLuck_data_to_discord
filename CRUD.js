@@ -14,10 +14,10 @@ function getTrippleLuckRawData() {
   return document
 }
 
-// 스프레드시트에서 제일마지막 행 데이터 가져오기
-function getLastRow({spreadsheetId=id_spreadsheet_tripleLuckData, sheetName=new Date().getFullYear()}) {
+// 스프레드시트에서 제일마지막부터 N개 행 데이터 가져오기
+function getLastRow({spreadsheetId=id_spreadsheet_tripleLuckData, sheetName=new Date().getFullYear(), row=8}) {
   var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(sheetName);
   var lastRow = sheet.getLastRow();
-  var lastRowData = sheet.getRange(lastRow, 1, 1, sheet.getLastColumn()).getValues()[0];
-  return lastRowData;
+  var last5Rows = sheet.getRange(lastRow-row+1, 1, row, sheet.getLastColumn()).getValues();
+  return last5Rows;
 }
