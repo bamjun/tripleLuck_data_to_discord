@@ -1,15 +1,21 @@
 // git clone https://github.com/bamjun/tripleLuck_data_to_discord.git
 // clasp clone "1jhHQfXReVhr4X2qA_eTPGh630v6El_k3qj038at9EBpN2tD4yK2B9DPv"
 
-function scrapeLottoDataToDiscord() {
-  var lastRowData = getLastRow({row: 1})[0];
+function scrapeLottoDataSaveToSpreadsheet() {
   var rawData = getTrippleLuckRawData();
-  var content_text = `\`${lastRowData[4]} - ${lastRowData[5]}\` [링크](${getTrippleLuckRawData_URL})\n \`10만원\`\n ${lastRowData[6]}번\n\n \`100만원\`\n ${lastRowData[7]}번\n\n \`500만원\`\n ${lastRowData[8]}번\n\n \`1억원\`\n ${lastRowData[9]}번\n\n \`5억원\`\n ${lastRowData[10]}번`;
-  content_text += "\n\n" + convertWinnersListData(rawData);
+  const jsonData = JSON.parse(convertWinnersListDataJson(rawData));
+  saveDataToSpreadsheet(jsonData, rawData)
+}
 
+
+function scrapeLottoDataToDiscord() {
+  var rawData = getTrippleLuckRawData();
   const jsonData = JSON.parse(convertWinnersListDataJson(rawData));
   saveDataToSpreadsheet(jsonData, rawData)
 
+  var lastRowData = getLastRow({row: 1})[0];
+  var content_text = `\`${lastRowData[4]} - ${lastRowData[5]}\` [링크](${getTrippleLuckRawData_URL})\n \`10만원 - ${lastRowData[6]}번\`\n \`100만원 - ${lastRowData[7]}번\`\n \`500만원 - ${lastRowData[8]}번\`\n \`1억원 - ${lastRowData[9]}번\`\n \`5억원 - ${lastRowData[10]}번\`\n\n`;
+  content_text += "\n\n" + convertWinnersListData(rawData);
   sendToDiscord(content_text);
 }
 
