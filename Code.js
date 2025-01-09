@@ -4,10 +4,11 @@
 function scrapeLottoDataToDiscord() {
   var rawData = getTrippleLuckRawData();
   const jsonData = JSON.parse(convertWinnersListDataJson(rawData));
+
   saveDataToSpreadsheet(jsonData, rawData)
 
   var lastRowData = getLastRow({row: 1})[0];
-  
+
   if (parseInt(lastRowData[9]) == 0 || parseInt(lastRowData[9]) % 2 != 0) {
     return;
   }
