@@ -37,30 +37,3 @@ function dataCrawlingGetRawData(url) {
   var document = HtmlService.createHtmlOutput(html).getContent();
   return document
 }
-
-function fetchPostData() {
-  var url = "https://ols.semas.or.kr/ols/man/SMAN051M/search.do";
-  
-  var payload = {
-    "bltwtrTitNm": "",
-    "searchStd": "1",
-    "pageNo": "1",
-    "type": "1"
-  };
-
-  var options = {
-    "method": "post",
-    "payload": payload,
-    "headers": {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  };
-
-  try {
-    var response = UrlFetchApp.fetch(url, options);
-    var content = response.getContentText('UTF-8');
-    return content;
-  } catch (error) {
-    Logger.log("Error: " + error.toString());
-  }
-}
