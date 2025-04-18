@@ -5,3 +5,4 @@ Config.js
 ### clasp config ###
 .clasp.json
 appsscript.json
+.clasp_token.json

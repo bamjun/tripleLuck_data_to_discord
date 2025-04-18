@@ -12,3 +12,8 @@ function a_test2_1() {
 function a_test2_2() {
   getLastRow({row: 1})[0];
 }
+
+function a_test2_3() {
+  sheetName = new Date().getFullYear()
+  Logger.log(String(sheetName))
+}
