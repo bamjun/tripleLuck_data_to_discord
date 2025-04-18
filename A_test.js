@@ -1,5 +1,5 @@
 function a_test_1() {
-    Logger.log(getLastRow({row: 8}))
+    Logger.log(sendToDiscord("content_text"))
 }
 
 
